@@ -8,4 +8,14 @@ jobs:
       - name: Installing keptn-cli
         run: |
           curl -sL https://get.keptn.sh/ | bash
-          keptn version
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: kubectl
+          service_account_key: ${{ secrets.GL_SA }}
+      - name: connecting to GKE
+        run: |
+          gcloud container clusters get-credentials keptnv1 --zone us-central1-b --project project-net-408408
+          kubectl get nodes
+          kubectl get ns
+          
