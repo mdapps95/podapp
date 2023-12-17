@@ -5,7 +5,7 @@ jobs:
   keptn_configure:
     runs-on: "ubuntu-latest"
     steps:
-      - name: Installing
+      - name: Installing keptn-cli
         run: |
-          echo "test"
-        
+          curl -sL https://get.keptn.sh/ | bash
+          keptn version
