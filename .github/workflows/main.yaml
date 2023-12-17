@@ -1,0 +1,11 @@
+name: keptn-workflow
+on:
+  workflow_dispatch:
+jobs:
+  keptn_configure:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Installing
+        run: |
+          echo "test"
+        
