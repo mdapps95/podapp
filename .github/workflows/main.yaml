@@ -12,7 +12,10 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           install_components: kubectl
-          service_account_key: ${{ secrets.GL_SA }}
+      - name: gcloud auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GL_SA }}'
       - name: connecting to GKE
         run: |
           gcloud container clusters get-credentials keptnv1 --zone us-central1-b --project project-net-408408
