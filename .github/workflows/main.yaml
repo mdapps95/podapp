@@ -39,13 +39,13 @@ jobs:
           keptn auth --endpoint=http://34.170.71.62:31090 --api-token=${{ secrets.KEPTN_API_TOKEN }}
       - name: Configuring keptn
         run: |
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
-          keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/basic.py
-          keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/locust.conf
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/basic.py
-          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/locust.conf
-          keptn configure monitoring prometheus --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE}
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
+          # keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/basic.py
+          # keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/locust.conf
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/basic.py
+          # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/locust.conf
+          # keptn configure monitoring prometheus --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE}
           keptn trigger delivery --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --image="ghcr.io/podtato-head/podtatoserver:v${DEPLOY_VERSION}"
