@@ -1,24 +1,49 @@
 name: keptn-workflow
 on:
   workflow_dispatch:
+env:
+  KEPTN_PROJECT: kptn-podapp
+  KEPTN_SERVICE: helloservice
+  DEPLOY_VERSION: 0.1.1
+  
 jobs:
   keptn_configure:
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+        
       - name: Installing keptn-cli
         run: |
           curl -sL https://get.keptn.sh/ | bash
+          echo $KEPTN_PROJECT
+          echo ${KEPTN_PROJECT}
+          
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
         with:
           install_components: kubectl
+          
       - name: gcloud auth
         uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GL_SA }}'
+          
       - name: connecting to GKE
         run: |
           gcloud container clusters get-credentials keptnv1 --zone us-central1-b --project project-net-408408
           kubectl get nodes
           kubectl get ns
-          
+      - name: Authenticate keptn
+        run: |
+          keptn auth --endpoint=http://34.170.71.62:31090 --api-token=${{ secerts.KEPTN_API_TOKEN }}
+      - name: Configuring keptn
+        run: |
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/basic.py
+          keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/locust.conf
+          keptn configure monitoring prometheus --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE}
+          keptn trigger delivery --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --image="ghcr.io/podtato-head/podtatoserver:v${DEPLOY_VERSION}"
