@@ -41,6 +41,8 @@ jobs:
         run: |
           keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
           keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
+          keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/basic.py
+          keptn add-resource --project=kptn-podapp --service=helloservice --stage=qa --resource=locust/locust.conf
           keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
           keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=quality_gated_release/slo.yaml --resourceUri=slo.yaml
           keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=production --resource=locust/basic.py
