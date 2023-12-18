@@ -4,7 +4,7 @@ on:
 env:
   KEPTN_PROJECT: kptn-podapp
   KEPTN_SERVICE: helloservice
-  DEPLOY_VERSION: 0.1.2
+  DEPLOY_VERSION: 0.1.1
   
 jobs:
   keptn_configure:
