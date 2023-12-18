@@ -36,7 +36,7 @@ jobs:
           kubectl get ns
       - name: Authenticate keptn
         run: |
-          keptn auth --endpoint=http://34.170.71.62:31090 --api-token=${{ secrets.KEPTN_API_TOKEN }}
+          keptn auth --endpoint=http://35.184.208.242:31090 --api-token=${{ secrets.KEPTN_API_TOKEN }}
       - name: Configuring keptn
         run: |
           # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
