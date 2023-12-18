@@ -36,7 +36,8 @@ jobs:
           kubectl get ns
       - name: Authenticate keptn
         run: |
-          keptn auth --endpoint=http://35.184.208.242:31090 --api-token=${{ secrets.KEPTN_API_TOKEN }}
+          external_ip=$(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}') 
+          keptn auth --endpoint=http://$external_ip:31090 --api-token=${{ secrets.KEPTN_API_TOKEN }}
       - name: Configuring keptn
         run: |
           # keptn add-resource --project=${KEPTN_PROJECT} --service=${KEPTN_SERVICE} --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
